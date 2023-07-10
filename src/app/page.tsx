@@ -1,6 +1,9 @@
 import Image from 'next/image'
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Search from '@/components/search';
+
+const Music = dynamic(() => import('@/components/music'), { ssr: false });
 
 import githubIcon from '@/img/github.svg'
 
@@ -19,6 +22,7 @@ export default function Home() {
       </Link>
       <h1 className="text-4xl font-bold">Welcome to The Fake Store!</h1>
       <Search />
+      <Music />
     </main>
   )
 }
