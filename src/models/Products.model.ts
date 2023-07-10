@@ -1,3 +1,5 @@
+// Product.model.ts
+
 import sequelize from "@/utils/sequelize";
 import { createEmbedding } from "@/utils/openai";
 const pgvector = require('pgvector/utils');
@@ -47,6 +49,10 @@ class Product extends Model implements T_Product {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            slug: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             description: {
                 type: DataTypes.TEXT,
                 allowNull: false,
@@ -81,7 +87,6 @@ class Product extends Model implements T_Product {
 
 Product.initModel();
 
-// Embed ad content and convert price to integer on create
 Product.addHook('beforeCreate', async (product: Product) => {
     const input = product.name + '\n' + product.category + '\n' + product.description;
     const embedding = await createEmbedding(input);
@@ -91,7 +96,6 @@ Product.addHook('beforeCreate', async (product: Product) => {
     }
 });
 
-// Embed ad content and convert price to integer on update if title, content, or price changed
 Product.addHook('beforeUpdate', async (product: Product) => {
     const input = product.name + '\n' + product.category + '\n' + product.description;
     const embedding = await createEmbedding(input);

@@ -1,11 +1,13 @@
 'use client'
 import React, { useState } from 'react'
 import { T_Product } from '@/models/products';
+import Turnstile from 'react-hook-turnstile';
 
 export default function Search() {
     const [search, setSearch] = useState<string>('');
     const [results, setResults] = useState<T_Product[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [token, setToken] = useState<string>('');
 
     const handleSearch = async () => {
         if (isLoading) return;
@@ -14,7 +16,7 @@ export default function Search() {
         try {
             const response = await fetch('/api/search', {
                 method: 'POST',
-                body: JSON.stringify({ query: search })
+                body: JSON.stringify({ query: search, token })
             });
             if (!response.ok) throw new Error(response.statusText);
             const data = await response.json();
@@ -67,6 +69,15 @@ export default function Search() {
 
                     }</button>
             </div>
+            {
+                !isLoading
+                    ?
+                    <Turnstile
+                        sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                        onVerify={(t) => setToken(t)}
+                    />
+                    : null
+            }
             {
                 results.length > 0
                     ?
