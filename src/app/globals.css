@@ -25,3 +25,24 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.angled-div {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  right: -100px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+
+.angled-div > div {
+  transform: rotate(45deg);
+  position: absolute;
+  padding: 5px;
+  top: 32%;
+}
