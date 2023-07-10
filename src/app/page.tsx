@@ -10,7 +10,7 @@ import githubIcon from '@/img/github.svg'
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24 gap-10">
-      <Link className="angled-div" href="https://github.com" target="_blank">
+      <Link className="angled-div" href="https://github.com/designly1/next-vector-search-example" target="_blank">
         <div>
           <Image
             src={githubIcon}
